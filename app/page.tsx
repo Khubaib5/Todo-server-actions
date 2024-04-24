@@ -1,6 +1,5 @@
 import Image from "next/image";
 import AddTodo from "@/components/shared/AddTodo";
-import prisma from "@/utils/prisma";
 import Todo from "@/components/shared/Todo";
 import { todoType } from "@/types/todoTypes";
 import { PrismaClient } from "@prisma/client";
