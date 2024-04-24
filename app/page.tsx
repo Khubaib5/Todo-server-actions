@@ -2,21 +2,25 @@ import Image from "next/image";
 import AddTodo from "@/components/shared/AddTodo";
 import prisma from "@/utils/prisma";
 import Todo from "@/components/shared/Todo";
+import { todoType } from "@/types/todoTypes";
+import { PrismaClient } from "@prisma/client";
 
+const prisma = new PrismaClient();
 async function getData() {
   const data = await prisma.todo.findMany({
-    select:{
-      title:true,
-      id:true,
-      IsCompleted:true,
+    select: {
+      title: true,
+      id: true,
+      IsCompleted: true,
     },
-    orderBy:{
-      createAt:"desc"
-    }
-  })
-  return data
+    orderBy: {
+      createAt:'desc'
+    },
+  });
+
+  return data;
 }
-export default async function Home() {
+const Home = async ({ todo }: { todo: todoType }) => {
   const data= await getData()
   return (
     <>
@@ -28,7 +32,7 @@ export default async function Home() {
         <div className="mt-6 space-y-6">
           {data.map(todo => (
             <div className="w-full" key={todo.id}>
-              <Todo todo={todo} />
+             <Todo todo={todo} />
             </div>
           ))}
         </div>
